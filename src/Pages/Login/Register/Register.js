@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Container, Grid, Typography, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Register = () => {
   //state for email and password
   const [loginData, setLoginData] = useState({});
+  const { registerUser, isLoading, user, authError } = useAuth();
 
   //handle onchange field
   const handleOnChange = e => {
@@ -26,8 +30,10 @@ const Register = () => {
       </Alert>;
       return;
     }
+    registerUser(loginData.email, loginData.password);
     e.preventDefault();
   };
+
   return (
     <Container>
       <Grid container spacing={2}>
@@ -35,49 +41,64 @@ const Register = () => {
           <Typography variant='h6' component='div' gutterBottom>
             Login
           </Typography>
-          <form onSubmit={handleLoginSubmit}>
-            <TextField
-              sx={{ width: "75%", m: 1 }}
-              id='standard-basic'
-              name='email'
-              type='email'
-              onChange={handleOnChange}
-              label='Your Email'
-              variant='standard'
-            />
-            <TextField
-              sx={{ width: "75%", m: 1 }}
-              name='password'
-              onChange={handleOnChange}
-              id='standard-basic'
-              label='Your Password'
-              type='password'
-              variant='standard'
-            />
-            <TextField
-              sx={{ width: "75%", m: 1 }}
-              name='password2'
-              onChange={handleOnChange}
-              id='standard-basic'
-              label='Confirm Your Password'
-              type='password'
-              variant='standard'
-            />
+          {!isLoading && (
+            <form onSubmit={handleLoginSubmit}>
+              <TextField
+                sx={{ width: "75%", m: 1 }}
+                id='standard-basic'
+                name='email'
+                type='email'
+                onChange={handleOnChange}
+                label='Your Email'
+                variant='standard'
+              />
+              <TextField
+                sx={{ width: "75%", m: 1 }}
+                name='password'
+                onChange={handleOnChange}
+                id='standard-basic'
+                label='Your Password'
+                type='password'
+                variant='standard'
+              />
+              <TextField
+                sx={{ width: "75%", m: 1 }}
+                name='password2'
+                onChange={handleOnChange}
+                id='standard-basic'
+                label='Confirm Your Password'
+                type='password'
+                variant='standard'
+              />
 
-            <NavLink to='/login'>
-              <Button variant='text' gutterBottom>
-                Already Registered? Please Login
+              <NavLink to='/login'>
+                <Button variant='text' gutterBottom>
+                  Already Registered? Please Login
+                </Button>
+              </NavLink>
+              <Button
+                sx={{ width: "75%", m: 1 }}
+                variant='contained'
+                type='submit'
+                gutterBottom
+              >
+                Register
               </Button>
-            </NavLink>
-            <Button
-              sx={{ width: "75%", m: 1 }}
-              variant='contained'
-              type='submit'
-              gutterBottom
-            >
-              Register
-            </Button>
-          </form>
+            </form>
+          )}
+          {isLoading && <CircularProgress />}
+          {user?.email && (
+            <Alert severity='success'>
+              <AlertTitle>Success</AlertTitle>
+              This user added successfully — <strong>check it out!</strong>
+            </Alert>
+          )}
+          {authError && (
+            <Alert severity='error'>
+              <AlertTitle>Error</AlertTitle>
+              {authError} — <strong>check it out!</strong>
+            </Alert>
+          )}
         </Grid>
         <Grid item xs={12} md={6}>
           <img
