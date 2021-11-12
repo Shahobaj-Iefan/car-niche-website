@@ -1,10 +1,11 @@
+import React, { useState } from "react";
 import { Container, Grid, Typography, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
 
-import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   //state for email and password
   const [loginData, setLoginData] = useState({});
 
@@ -16,9 +17,15 @@ const Login = () => {
     newLoginData[field] = value;
     setLoginData(newLoginData);
   };
+
   //handle submit form
   const handleLoginSubmit = e => {
-    alert("Login success");
+    if (loginData.password !== loginData.password2) {
+      <Alert severity='error' color='error.main'>
+        Your Password is wrong
+      </Alert>;
+      return;
+    }
     e.preventDefault();
   };
   return (
@@ -33,6 +40,7 @@ const Login = () => {
               sx={{ width: "75%", m: 1 }}
               id='standard-basic'
               name='email'
+              type='email'
               onChange={handleOnChange}
               label='Your Email'
               variant='standard'
@@ -46,10 +54,19 @@ const Login = () => {
               type='password'
               variant='standard'
             />
+            <TextField
+              sx={{ width: "75%", m: 1 }}
+              name='password2'
+              onChange={handleOnChange}
+              id='standard-basic'
+              label='Confirm Your Password'
+              type='password'
+              variant='standard'
+            />
 
-            <NavLink to='/register'>
+            <NavLink to='/login'>
               <Button variant='text' gutterBottom>
-                New user? Please Register
+                Already Registered? Please Login
               </Button>
             </NavLink>
             <Button
@@ -58,7 +75,7 @@ const Login = () => {
               type='submit'
               gutterBottom
             >
-              Login
+              Register
             </Button>
           </form>
         </Grid>
@@ -73,4 +90,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
