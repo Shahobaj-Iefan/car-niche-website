@@ -16,7 +16,9 @@ import useAuth from "../../../hooks/useAuth";
 const Login = () => {
   //state for email and password
   const [loginData, setLoginData] = useState({});
-  const { user, isLoading, authError, loginUser } = useAuth();
+  const { user, isLoading, authError, loginUser, signinwithGoogle } = useAuth();
+  // const location = useLocation();
+  // const history = useHistory();
 
   //handle onchange field
   const handleOnChange = e => {
@@ -31,6 +33,7 @@ const Login = () => {
     loginUser(loginData.email, loginData.password);
     e.preventDefault();
   };
+  //here maintain history and location of google sign in module 72-1
   return (
     <Container>
       <Grid container spacing={2}>
@@ -86,6 +89,9 @@ const Login = () => {
               {authError} — <strong>check it out!</strong>
             </Alert>
           )}
+          <Button onClick={signinwithGoogle} variant='contained' gutterBottom>
+            Sign In with Google
+          </Button>
         </Grid>
         <Grid item xs={12} md={6}>
           <img

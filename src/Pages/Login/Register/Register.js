@@ -13,8 +13,8 @@ const Register = () => {
   const [loginData, setLoginData] = useState({});
   const { registerUser, isLoading, user, authError } = useAuth();
 
-  //handle onchange field
-  const handleOnChange = e => {
+  //handle onBlur field
+  const handleOnBlur = e => {
     const field = e.target.name;
     const value = e.target.value;
     const newLoginData = { ...loginData };
@@ -46,16 +46,24 @@ const Register = () => {
               <TextField
                 sx={{ width: "75%", m: 1 }}
                 id='standard-basic'
+                name='name'
+                onBlur={handleOnBlur}
+                label='Your Name'
+                variant='standard'
+              />
+              <TextField
+                sx={{ width: "75%", m: 1 }}
+                id='standard-basic'
                 name='email'
                 type='email'
-                onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 label='Your Email'
                 variant='standard'
               />
               <TextField
                 sx={{ width: "75%", m: 1 }}
                 name='password'
-                onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 id='standard-basic'
                 label='Your Password'
                 type='password'
@@ -64,7 +72,7 @@ const Register = () => {
               <TextField
                 sx={{ width: "75%", m: 1 }}
                 name='password2'
-                onChange={handleOnChange}
+                onBlur={handleOnBlur}
                 id='standard-basic'
                 label='Confirm Your Password'
                 type='password'

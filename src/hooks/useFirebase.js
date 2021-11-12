@@ -6,6 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 // initialize firebase app
@@ -17,6 +19,7 @@ const useFirebase = () => {
   const [authError, setAuthError] = useState("");
 
   const auth = getAuth();
+  const googleProvider = new GoogleAuthProvider();
 
   //register user
   const registerUser = (email, password) => {
@@ -42,6 +45,18 @@ const useFirebase = () => {
         setAuthError(error.message);
       })
       .finally(() => setIsLoading(false));
+  };
+
+  // sign in with google
+  // if i needed i can take history and location parameter
+  const signinwithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then(result => {
+        const user = result.user;
+      })
+      .catch(error => {
+        setAuthError(error.message);
+      });
   };
 
   // user observer
@@ -77,6 +92,7 @@ const useFirebase = () => {
     logOut,
     loginUser,
     isLoading,
+    signinwithGoogle,
   };
 };
 export default useFirebase;
