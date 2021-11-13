@@ -5,13 +5,14 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 const Register = () => {
   //state for email and password
   const [loginData, setLoginData] = useState({});
   const { registerUser, isLoading, user, authError } = useAuth();
+  const history = useHistory();
 
   //handle onBlur field
   const handleOnBlur = e => {
@@ -30,7 +31,7 @@ const Register = () => {
       </Alert>;
       return;
     }
-    registerUser(loginData.email, loginData.password);
+    registerUser(loginData.email, loginData.password, loginData.name, history);
     e.preventDefault();
   };
 

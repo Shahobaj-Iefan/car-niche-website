@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 
 // initialize firebase app
@@ -22,11 +23,20 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   //register user
-  const registerUser = (email, password) => {
+  const registerUser = (email, password, name, history) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         setAuthError("");
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+        // send name to firebase after user creation
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch(error => {});
+        history.replace("/");
       })
       .catch(error => {
         setAuthError(error.message);
@@ -35,10 +45,12 @@ const useFirebase = () => {
   };
 
   //Login user
-  const loginUser = (email, password) => {
+  const loginUser = (email, password, location, history) => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
+        const destination = location?.state?.from || "/";
+        history.replace(destination);
         setAuthError("");
       })
       .catch(error => {
@@ -49,14 +61,19 @@ const useFirebase = () => {
 
   // sign in with google
   // if i needed i can take history and location parameter
-  const signinwithGoogle = () => {
+  const signInWithGoogle = (location, history) => {
+    setIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then(result => {
+        const destination = location?.state?.from || "/";
+        history.replace(destination);
         const user = result.user;
+        setAuthError("");
       })
       .catch(error => {
         setAuthError(error.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   // user observer
@@ -92,7 +109,7 @@ const useFirebase = () => {
     logOut,
     loginUser,
     isLoading,
-    signinwithGoogle,
+    signInWithGoogle,
   };
 };
 export default useFirebase;

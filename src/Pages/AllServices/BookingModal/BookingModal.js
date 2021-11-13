@@ -1,5 +1,5 @@
 import React from "react";
-
+import useAuth from "../../../hooks/useAuth";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -22,6 +22,7 @@ const style = {
 
 const BookingModal = ({ openBooking, handleBooingClose, service }) => {
   const { img, name, description } = service;
+  const { user } = useAuth();
   const handleBookingSubmit = e => {
     alert("Submitting");
     //collect data from the form and send to the server
@@ -54,14 +55,14 @@ const BookingModal = ({ openBooking, handleBooingClose, service }) => {
               label='Name'
               sx={{ width: "90%", m: 1 }}
               id='outlined-size-small'
-              defaultValue='Your Name'
+              defaultValue={user.displayName}
               size='small'
             />
             <TextField
               label='Email'
               sx={{ width: "90%", m: 1 }}
               id='outlined-size-small'
-              defaultValue='Your Email'
+              defaultValue={user.email}
               size='small'
             />
             <TextField

@@ -7,6 +7,9 @@ import AllServices from "./Pages/AllServices/AllServices/AllServices";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import AuthProvider from "./contexts/AuthProvider/AuthProvider";
+import BookingModal from "./Pages/AllServices/BookingModal/BookingModal";
+import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
+import ShowServices from "./Pages/AllServices/ShowServices/ShowServices";
 function App() {
   return (
     <div className='App'>

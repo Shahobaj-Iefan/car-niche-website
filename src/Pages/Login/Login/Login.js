@@ -10,15 +10,17 @@ import {
 import TextField from "@mui/material/TextField";
 
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
   //state for email and password
   const [loginData, setLoginData] = useState({});
-  const { user, isLoading, authError, loginUser, signinwithGoogle } = useAuth();
+  const { user, isLoading, authError, loginUser, signInWithGoogle } = useAuth();
   // const location = useLocation();
+  const location = useLocation();
   // const history = useHistory();
+  const history = useHistory();
 
   //handle onchange field
   const handleOnChange = e => {
@@ -30,10 +32,13 @@ const Login = () => {
   };
   //handle submit form
   const handleLoginSubmit = e => {
-    loginUser(loginData.email, loginData.password);
+    loginUser(loginData.email, loginData.password, location, history);
     e.preventDefault();
   };
   //here maintain history and location of google sign in module 72-1
+  const handleGoogleSignIn = () => {
+    signInWithGoogle(location, history);
+  };
   return (
     <Container>
       <Grid container spacing={2}>
@@ -89,7 +94,7 @@ const Login = () => {
               {authError} — <strong>check it out!</strong>
             </Alert>
           )}
-          <Button onClick={signinwithGoogle} variant='contained' gutterBottom>
+          <Button onClick={handleGoogleSignIn} variant='contained' gutterBottom>
             Sign In with Google
           </Button>
         </Grid>

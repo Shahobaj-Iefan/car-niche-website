@@ -31,6 +31,7 @@ const ShowServices = ({ service }) => {
             <Typography variant='body2' color='text.secondary'>
               {description.slice(0, 100)}
             </Typography>
+
             <Button onClick={handleBookingOpen} variant='contained'>
               Buy Now
             </Button>
