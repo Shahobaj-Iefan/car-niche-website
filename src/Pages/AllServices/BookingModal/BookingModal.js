@@ -55,7 +55,7 @@ const BookingModal = ({
 
     // after collecting  data  send to the server
     console.log(order);
-    fetch("http://localhost:5000/orders", {
+    fetch("https://fierce-cliffs-29526.herokuapp.com/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

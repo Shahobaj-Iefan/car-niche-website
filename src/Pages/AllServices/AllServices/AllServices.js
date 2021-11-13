@@ -8,7 +8,7 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
   const [orderSuccess, setOrderSuccess] = useState(false);
   useEffect(() => {
-    const url = `http://localhost:5000/services`;
+    const url = `https://fierce-cliffs-29526.herokuapp.com/services`;
     fetch(url)
       .then(res => res.json())
       .then(data => setServices(data));

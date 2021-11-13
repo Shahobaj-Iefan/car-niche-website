@@ -13,7 +13,7 @@ const Orders = () => {
   const { user } = useAuth();
   const [allOrders, setAllOrders] = useState([]);
   useEffect(() => {
-    const url = `http://localhost:5000/orders`;
+    const url = `https://fierce-cliffs-29526.herokuapp.com/orders`;
     fetch(url)
       .then(res => res.json())
       .then(data => setAllOrders(data));

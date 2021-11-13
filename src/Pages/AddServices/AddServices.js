@@ -10,12 +10,14 @@ const AddServices = () => {
 
   const onSubmit = data => {
     console.log(data);
-    axios.post("http://localhost:5000/services", data).then(res => {
-      if (res.data.insertedId) {
-        alert("Service added Successfully");
-        reset();
-      }
-    });
+    axios
+      .post("https://fierce-cliffs-29526.herokuapp.com/services", data)
+      .then(res => {
+        if (res.data.insertedId) {
+          alert("Service added Successfully");
+          reset();
+        }
+      });
   };
   return (
     <div>
