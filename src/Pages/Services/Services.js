@@ -3,65 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Service from "../Home/Service/Service";
 
-/* const services = [
-  {
-    id: 1,
-    name: "Toyota",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 2,
-    name: "Toyota2",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 3,
-    name: "Toyota3",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 4,
-    name: "Toyota4",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 5,
-    name: "Toyota5",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 6,
-    name: "Toyota6",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 7,
-    name: "Toyota7",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-  {
-    id: 8,
-    name: "Toyota8",
-    description: "dfkdsfsdfsdfjdsf",
-    price: "3000",
-    img: "https://i.ibb.co/zFYRWdv/service3.png",
-  },
-]; */
-
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {

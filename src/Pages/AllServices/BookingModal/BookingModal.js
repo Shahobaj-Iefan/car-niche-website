@@ -6,7 +6,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, CardMedia } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -86,6 +87,9 @@ const BookingModal = ({
     >
       <Fade in={openBooking}>
         <Box sx={style}>
+          <CardMedia>
+            <img src={img} alt='' />
+          </CardMedia>
           <Typography id='transition-modal-title' variant='h6' component='h2'>
             {name}
           </Typography>
@@ -120,9 +124,12 @@ const BookingModal = ({
               defaultValue='Your Phone'
               size='small'
             />
-            <Button type='submit' variant='contained'>
-              Payments
-            </Button>
+
+            <NavLink to='/payments'>
+              <Button type='submit' variant='contained'>
+                Payments
+              </Button>
+            </NavLink>
           </form>
         </Box>
       </Fade>

@@ -15,14 +15,22 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Orders from "../Orders/Orders";
+import Button from "@mui/material/Button";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import DashboardHome from "../DashboardHome/DashboardHome";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+
+import AddServices from "../../AddServices/AddServices";
+import useAuth from "../../../hooks/useAuth";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const { admin } = useAuth();
+  //use route match
+  let { path, url } = useRouteMatch();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -31,6 +39,27 @@ function Dashboard(props) {
     <div>
       <Toolbar />
       <Divider />
+      <List>
+        <Link to='/'>
+          <Button color='inherit'>Orders</Button>
+        </Link>
+        <Link to={`${url}`}>
+          <Button color='inherit'>Dashboard</Button>
+        </Link>
+
+        {admin && (
+          <Box>
+            <Link to={`${url}/makeAdmin`}>
+              <Button color='inherit'>Make Admin</Button>
+            </Link>
+
+            <Link to={`${url}/addService`}>
+              <Button color='inherit'>Add Service</Button>
+            </Link>
+          </Box>
+        )}
+      </List>
+
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
@@ -119,9 +148,17 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          <Orders></Orders>
-        </Typography>
+        <Switch>
+          <Route exact path={path}>
+            <DashboardHome></DashboardHome>
+          </Route>
+          <Route path={`${path}/makeAdmin`}>
+            <MakeAdmin></MakeAdmin>
+          </Route>
+          <Route path={`${path}/addService`}>
+            <AddServices></AddServices>
+          </Route>
+        </Switch>
       </Box>
     </Box>
   );
