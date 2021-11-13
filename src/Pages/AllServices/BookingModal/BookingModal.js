@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -20,14 +20,56 @@ const style = {
   p: 4,
 };
 
-const BookingModal = ({ openBooking, handleBooingClose, service }) => {
+const BookingModal = ({
+  openBooking,
+  handleBooingClose,
+  service,
+  setOrderSuccess,
+}) => {
   const { img, name, description } = service;
   const { user } = useAuth();
+  //initial user info
+  const initialInfo = {
+    customerName: user.displayName,
+    email: user.email,
+    phone: "",
+  };
+  //handle booking info
+  const [bookingInfo, setBookingInfo] = useState(initialInfo);
+  const handleOnBlur = e => {
+    const field = e.target.name;
+    const value = e.target.value;
+    const newInfo = { ...bookingInfo };
+    newInfo[field] = value;
+    setBookingInfo(newInfo);
+  };
+  //booking submit
   const handleBookingSubmit = e => {
-    alert("Submitting");
-    //collect data from the form and send to the server
+    //collect data
+    const order = {
+      ...bookingInfo,
+      productName: name,
+      productDescription: description,
+    };
 
-    handleBooingClose();
+    // after collecting  data  send to the server
+    console.log(order);
+    fetch("http://localhost:5000/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId) {
+          setOrderSuccess(true);
+          handleBooingClose();
+        }
+        console.log(data);
+      });
+
     e.preventDefault();
   };
   return (
@@ -55,6 +97,8 @@ const BookingModal = ({ openBooking, handleBooingClose, service }) => {
               label='Name'
               sx={{ width: "90%", m: 1 }}
               id='outlined-size-small'
+              name='customerName'
+              onBlur={handleOnBlur}
               defaultValue={user.displayName}
               size='small'
             />
@@ -62,6 +106,8 @@ const BookingModal = ({ openBooking, handleBooingClose, service }) => {
               label='Email'
               sx={{ width: "90%", m: 1 }}
               id='outlined-size-small'
+              name='email'
+              onBlur={handleOnBlur}
               defaultValue={user.email}
               size='small'
             />
@@ -69,6 +115,8 @@ const BookingModal = ({ openBooking, handleBooingClose, service }) => {
               label='Phone'
               id='outlined-size-small'
               sx={{ width: "90%", m: 1 }}
+              name='phone'
+              onBlur={handleOnBlur}
               defaultValue='Your Phone'
               size='small'
             />

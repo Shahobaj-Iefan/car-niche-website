@@ -54,9 +54,20 @@ const Navigation = () => {
             </Link>
           </Typography>
           {user?.email ? (
-            <Button onClick={logOut} variant='contained'>
-              Logout
-            </Button>
+            <Box>
+              <NavLink to='/dashboard'>
+                <Button
+                  style={{ backgroundColor: "black", textDecoration: "none" }}
+                  variant='contained'
+                >
+                  Dashboard
+                </Button>
+              </NavLink>
+
+              <Button onClick={logOut} variant='contained'>
+                Logout
+              </Button>
+            </Box>
           ) : (
             <NavLink to='/login'>
               <Button

@@ -9,7 +9,7 @@ import {
 import React from "react";
 import BookingModal from "../BookingModal/BookingModal";
 
-const ShowServices = ({ service }) => {
+const ShowServices = ({ service, setOrderSuccess }) => {
   const { name, description, img } = service;
   const [openBooking, setOpenBooking] = React.useState(false);
   const handleBookingOpen = () => setOpenBooking(true);
@@ -42,6 +42,7 @@ const ShowServices = ({ service }) => {
         handleBooingClose={handleBooingClose}
         openBooking={openBooking}
         service={service}
+        setOrderSuccess={setOrderSuccess}
       ></BookingModal>
     </>
   );

@@ -7,9 +7,9 @@ import AllServices from "./Pages/AllServices/AllServices/AllServices";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import AuthProvider from "./contexts/AuthProvider/AuthProvider";
-import BookingModal from "./Pages/AllServices/BookingModal/BookingModal";
 import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
-import ShowServices from "./Pages/AllServices/ShowServices/ShowServices";
+import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
+import AddServices from "./Pages/AddServices/AddServices";
 function App() {
   return (
     <div className='App'>
@@ -23,11 +23,17 @@ function App() {
             <Route path='/home'>
               <Home></Home>
             </Route>
-            <Route path='/allservices'>
+            <PrivateRoute path='/allservices'>
               <AllServices></AllServices>
-            </Route>
+            </PrivateRoute>
+            <PrivateRoute path='/dashboard'>
+              <Dashboard></Dashboard>
+            </PrivateRoute>
             <Route path='/login'>
               <Login></Login>
+            </Route>
+            <Route path='/addservice'>
+              <AddServices></AddServices>
             </Route>
             <Route path='/register'>
               <Register></Register>

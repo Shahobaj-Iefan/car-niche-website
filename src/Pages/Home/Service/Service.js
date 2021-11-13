@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 
@@ -22,7 +21,6 @@ const Service = props => {
         <Typography variant='body2' color='text.secondary'>
           {description.slice(0, 100)}
         </Typography>
-        <Button variant='contained'>Buy Now</Button>
       </CardContent>
     </Card>
   );

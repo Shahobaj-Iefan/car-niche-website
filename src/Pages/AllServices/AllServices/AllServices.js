@@ -1,9 +1,9 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
+import { Alert, AlertTitle, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Footer from "../../Shared/Footer/Footer";
 import Navigation from "../../Shared/Navigation/Navigation";
 import ShowServices from "../ShowServices/ShowServices";
-const services = [
+/* const services = [
   {
     id: 1,
     name: "Toyota",
@@ -60,9 +60,17 @@ const services = [
     price: "3000",
     img: "https://i.ibb.co/zFYRWdv/service3.png",
   },
-];
+]; */
 
 const AllServices = () => {
+  const [services, setServices] = useState([]);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  useEffect(() => {
+    const url = `http://localhost:5000/services`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setServices(data));
+  }, []);
   return (
     <>
       <Navigation></Navigation>
@@ -73,6 +81,12 @@ const AllServices = () => {
       >
         Available Products
       </Typography>
+      {orderSuccess && (
+        <Alert severity='success'>
+          <AlertTitle>Success</AlertTitle>
+          Order Placed successfully — <strong>check it out!</strong>
+        </Alert>
+      )}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -80,7 +94,11 @@ const AllServices = () => {
       >
         {services.map(service => (
           <Grid item xs={12} sm={4} md={4}>
-            <ShowServices key={service.id} service={service}></ShowServices>
+            <ShowServices
+              key={service.id}
+              service={service}
+              setOrderSuccess={setOrderSuccess}
+            ></ShowServices>
           </Grid>
         ))}
       </Grid>

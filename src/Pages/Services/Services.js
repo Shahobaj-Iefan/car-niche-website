@@ -1,9 +1,9 @@
 import { Grid, Typography, Container, Button } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Service from "../Home/Service/Service";
 
-const services = [
+/* const services = [
   {
     id: 1,
     name: "Toyota",
@@ -60,9 +60,16 @@ const services = [
     price: "3000",
     img: "https://i.ibb.co/zFYRWdv/service3.png",
   },
-];
+]; */
 
 const Services = () => {
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    const url = `http://localhost:5000/services`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setServices(data));
+  }, []);
   return (
     <Container>
       <Typography

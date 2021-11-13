@@ -30,6 +30,9 @@ const useFirebase = () => {
         setAuthError("");
         const newUser = { email, displayName: name };
         setUser(newUser);
+        //save to data base
+        saveUser(email, name, "POST");
+
         // send name to firebase after user creation
         updateProfile(auth.currentUser, {
           displayName: name,
@@ -68,6 +71,7 @@ const useFirebase = () => {
         const destination = location?.state?.from || "/";
         history.replace(destination);
         const user = result.user;
+        saveUser(user.email, user.displayName, "PUT");
         setAuthError("");
       })
       .catch(error => {
@@ -102,6 +106,18 @@ const useFirebase = () => {
       })
       .finally(() => setIsLoading(false));
   };
+  //send and save user to database
+  const saveUser = (email, displayName, method) => {
+    const user = { email, displayName };
+    fetch("http://localhost:5000/users", {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
+  };
+
   return {
     user,
     authError,
